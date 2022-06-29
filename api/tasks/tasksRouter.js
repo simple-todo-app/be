@@ -16,7 +16,7 @@ router.get('/:id', restricted, (req, res, next) => {
     }).catch(next)
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', restricted, async (req, res, next) => {
   const { title, user_id } = req.body;
   if (!title) {
     res.status(404).json({ message: 'Please enter all required fields' });
@@ -30,23 +30,18 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/:task_id', (req, res, next) => {
+router.delete('/:task_id', restricted, (req, res, next) => {
   Task.deleteTaskById(req.params.task_id)
     .then(task => {
       res.json(task)
     }).catch(next)
 })
 
-router.put('/:task_id', (req, res, next) => {
+router.patch('/:task_id', restricted, (req, res, next) => {
   const { completed } = req.body;
 
-  if (completed === 1) {
-    Task.toggleCompletedById(req.params.task_id, { completed: 1 })
-    .then(task => {
-      res.json(task)
-    }).catch(next)
-  } else {
-    Task.toggleCompletedById(req.params.task_id, { completed: 0 })
+  if (completed) {
+    Task.toggleCompletedById(req.params.task_id, { completed: !completed })
     .then(task => {
       res.json(task)
     }).catch(next)
