@@ -22,7 +22,7 @@ router.post('/', restricted, async (req, res, next) => {
     res.status(404).json({ message: 'Please enter all required fields' });
   } else {
     res.status(201).json(
-      await Task.postNewTask({title: title, user_id: user_id})
+      await Task.postNewTask({ title, user_id })
         .then(task => {
           res.json(task)
         }).catch(next)
