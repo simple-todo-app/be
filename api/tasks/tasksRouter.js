@@ -41,7 +41,7 @@ router.patch('/:task_id', restricted, (req, res, next) => {
   const { completed } = req.body;
 
   if (completed) {
-    Task.toggleCompletedById(req.params.task_id, { completed: !completed })
+    Task.toggleCompletedById(req.params.task_id, { completed })
     .then(task => {
       res.json(task)
     }).catch(next)
