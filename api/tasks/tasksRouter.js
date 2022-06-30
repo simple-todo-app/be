@@ -40,7 +40,7 @@ router.delete('/:task_id', restricted, (req, res, next) => {
 router.put('/:task_id', (req, res, next) => {
   const { completed } = req.body;
 
-  if (completed) {
+  if (completed !== undefined) {
     Task.toggleCompletedById(req.params.task_id, { completed })
     .then(task => {
       res.json(task)
