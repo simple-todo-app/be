@@ -37,11 +37,16 @@ router.delete('/:task_id', restricted, (req, res, next) => {
     }).catch(next)
 })
 
-router.put('/:task_id', restricted, (req, res, next) => {
+router.put('/:task_id', (req, res, next) => {
   const { completed } = req.body;
 
-  if (completed) {
-    Task.toggleCompletedById(req.params.task_id, { completed })
+  if (completed === 1) {
+    Task.toggleCompletedById(req.params.task_id, { completed: 1 })
+    .then(task => {
+      res.json(task)
+    }).catch(next)
+  } else {
+    Task.toggleCompletedById(req.params.task_id, { completed: 0 })
     .then(task => {
       res.json(task)
     }).catch(next)
