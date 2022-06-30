@@ -12,9 +12,9 @@ const getAllUserTasks = async (id) => {
 }
 
 const postNewTask = async (task) => {
-  const [result] = await db('tasks').insert(task)
+  const [result] = await db('tasks').insert(task);
 
-  return db('tasks as t').where('t.task_id', result);
+  return result;
 }
 
 const deleteTaskById = async (task_id) => {
