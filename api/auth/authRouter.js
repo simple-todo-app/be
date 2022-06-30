@@ -65,7 +65,7 @@ router.post('/signin', (req, res, next) => {
 
 const generateToken = (user) => {
   const payload = {
-    id: user.id,
+    id: user.user_id,
     email: user.email
   };
   const secret = process.env.SECRET;
