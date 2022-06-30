@@ -37,7 +37,7 @@ router.delete('/:task_id', restricted, (req, res, next) => {
     }).catch(next)
 })
 
-router.patch('/:task_id', restricted, (req, res, next) => {
+router.put('/:task_id', restricted, (req, res, next) => {
   const { completed } = req.body;
 
   if (completed) {
